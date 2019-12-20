@@ -1,0 +1,57 @@
+{
+    "player1": {
+        "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8478042.jpg",
+        "name": "Vicktor Arvidsson",
+        "position": "Right Wing",
+        "uid": ""
+    },
+
+    "player2": {
+        "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8476278.jpg",
+        "name": "Colin Blackwell",
+        "position": "Center",
+        "uid": ""
+    },
+
+    "player3": {
+        "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8476887.jpg",
+        "name": "Filip Forsberg",
+        "position": "Left Wing",
+        "uid": ""
+    },
+
+    "player4": {
+        "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8471469.jpg",
+        "name": "Pekka Rinne",
+        "position": "Goalie",
+        "uid": ""
+    },
+
+    "player5": {
+        "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8475793.jpg",
+        "name": "Ryan Johansen",
+        "position": "Center",
+        "uid": ""
+    },
+
+    "player6": {
+        "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8475766.jpg",
+        "name": "Austin Watson",
+        "position": "Left Wing",
+        "uid": ""
+    },
+
+    "player7": {
+        "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8476428.jpg",
+        "name": "Rocco Grimaldi",
+        "position": "Right Wing",
+        "uid": ""
+    },
+
+    "player8": {
+        "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8477424.jpg",
+        "name": "Juuse Saros",
+        "position": "Goalie",
+        "uid": ""
+    }
+}
