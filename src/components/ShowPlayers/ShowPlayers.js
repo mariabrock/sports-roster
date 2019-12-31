@@ -3,7 +3,7 @@ import React from 'react';
 
 // import teamData from '../../helpers/data/teamData';
 
-class SinglePlayerBoard extends React.Component {
+class ShowPlayers extends React.Component {
   render() {
     return (
         <div>
@@ -13,4 +13,4 @@ class SinglePlayerBoard extends React.Component {
   }
 }
 
-export default SinglePlayerBoard;
+export default ShowPlayers;
