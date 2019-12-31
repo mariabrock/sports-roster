@@ -1,65 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Player from '../Player/Player';
-import PlayerForm from '../PlayerForm/PlayerForm';
+import Team from '../Team/Team';
+import TeamForm from '../TeamForm/TeamForm';
 
 import authData from '../../helpers/data/authData';
-import playerData from '../../helpers/data/playerData';
+import teamData from '../../helpers/data/teamData';
 
 class TeamContainer extends React.Component {
     static propTypes = {
-      setPlayerBoard: PropTypes.func,
+      setTeamBoard: PropTypes.func,
     }
 
     state = {
-      players: {},
+      team: {},
       editMode: false,
-      playerToEdit: {},
-      showPlayerForm: false,
+      teamToEdit: {},
+      showTeamForm: false,
     }
 
     componentDidMount() {
       this.getPlayers();
     }
 
-    getPlayers = () => {
-      playerData.getPlayersByUid(authData.getUid())
-        .then((players) => {
-          this.setState({ players });
+    getTeams = () => {
+      teamData.getTeamsByUid(authData.getUid())
+        .then((teams) => {
+          this.setState({ teams });
         })
         .catch((errFromTeamContainer) => console.log({ errFromTeamContainer }));
     }
 
-    addPlayer = (newPlayer) => {
-      playerData.savePlayer(newPlayer)
+    addTeam = (newTeam) => {
+      teamData.saveTeam(newTeam)
         .then(() => {
-          this.getPlayers();
-          this.setState({ showPlayerForm: false });
+          this.getTeams();
+          this.setState({ showTeamForm: false });
         })
-        .catch((errorFromUpdatePlayer) => console.error({ errorFromUpdatePlayer }));
+        .catch((errorFromUpdateTeam) => console.error({ errorFromUpdateTeam }));
     }
 
     setEditMode = (editMode) => {
-      this.setState({ editMode, showPlayerForm: true });
+      this.setState({ editMode, showTeamForm: true });
     }
 
-    setPlayerToEdit = (player) => {
-      this.setState({ playerToEdit: player });
+    setTeamToEdit = (team) => {
+      this.setState({ teamToEdit: team });
     }
 
-    setShowPlayerForm = () => {
-      this.setState({ showPlayerForm: true });
+    setShowTeamForm = () => {
+      this.setState({ showTeamForm: true });
     }
 
     render() {
-      const { setPlayerBoard } = this.props;
+      const { setTeamBoard } = this.props;
 
       return (
         <div>
-            <button className="btn btn-light" onClick={this.setShowBoardForm}>Add A New Board</button>
-            { this.state.showPLayerForm && <PlayerForm addPlayer={this.addPlayer} editMode={this.state.editMode} playerToEdit={this.state.playerToEdit} updatePlayer={this.updatePlayer} /> }
-            {this.state.players.map((player) => (<Player key={player.id} player={player} setPlayerBoard={setPlayerBoard} setEditMode={this.setEditMode} setPlayerToEdit={this.setPlayerToEdit} />))}
+            <button className="btn btn-light" onClick={this.setShowTeamForm}>Add A New Team</button>
+            { this.state.showTeamForm && <TeamForm addTeam={this.addTeam} editMode={this.state.editMode} teamToEdit={this.state.teamToEdit} updateTeam={this.updateTeam} /> }
+            {this.state.teams.map((team) => (<Team key={team.id} team={team} setTeamBoard={setTeamBoard} setEditMode={this.setEditMode} setTeamToEdit={this.setTeamToEdit} />))}
       </div>);
     }
 }
