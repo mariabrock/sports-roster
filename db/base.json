@@ -1,3 +1,4 @@
 {
-    "players": "players"
-  }
+  "team": "team",
+  "players": "players"
+}

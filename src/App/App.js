@@ -5,7 +5,7 @@ import firebaseConnection from '../helpers/data/connection';
 import Auth from '../components/Auth/Auth';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
 import TeamContainer from '../components/TeamContainer/TeamContainer';
-import PlayerBoard from '../components/PlayerBoard/PlayerBoard';
+import ShowPlayers from '../components/ShowPlayers/ShowPlayers';
 
 import './App.scss';
 
@@ -39,7 +39,7 @@ class App extends React.Component {
     if (!selectedBoardId) {
       return (<TeamContainer />);
     }
-    return (<PlayerBoard />);
+    return (<ShowPlayers />);
   }
 
   render() {

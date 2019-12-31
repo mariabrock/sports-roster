@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Player from '../Player/Player';
+import Team from '../Team/Team';
 import PlayerForm from '../PlayerForm/PlayerForm';
 
 import authData from '../../helpers/data/authData';
@@ -9,35 +9,32 @@ import playerData from '../../helpers/data/playerData';
 
 class TeamContainer extends React.Component {
     static propTypes = {
-      setPlayerBoard: PropTypes.func,
+      setShowPlayers: PropTypes.func,
     }
 
     state = {
-      players: {},
-      editMode: false,
-      playerToEdit: {},
-      showPlayerForm: false,
+      player: {},
     }
 
     componentDidMount() {
       this.getPlayers();
     }
 
-    getPlayers = () => {
+    getTeams = () => {
       playerData.getPlayersByUid(authData.getUid())
-        .then((players) => {
-          this.setState({ players });
+        .then((teams) => {
+          this.setState({ teams });
         })
-        .catch((errFromTeamContainer) => console.log({ errFromTeamContainer }));
+        .catch((errFromTeamContainer) => console.error({ errFromTeamContainer }));
     }
 
     addPlayer = (newPlayer) => {
       playerData.savePlayer(newPlayer)
         .then(() => {
-          this.getPlayers();
+          this.getPlayer();
           this.setState({ showPlayerForm: false });
         })
-        .catch((errorFromUpdatePlayer) => console.error({ errorFromUpdatePlayer }));
+        .catch((errorFromUpdateTeam) => console.error({ errorFromUpdateTeam }));
     }
 
     setEditMode = (editMode) => {
@@ -53,13 +50,13 @@ class TeamContainer extends React.Component {
     }
 
     render() {
-      const { setPlayerBoard } = this.props;
+      const { setShowPlayers } = this.props;
 
       return (
         <div>
-            <button className="btn btn-light" onClick={this.setShowBoardForm}>Add A New Board</button>
-            { this.state.showPLayerForm && <PlayerForm addPlayer={this.addPlayer} editMode={this.state.editMode} playerToEdit={this.state.playerToEdit} updatePlayer={this.updatePlayer} /> }
-            {this.state.players.map((player) => (<Player key={player.id} player={player} setPlayerBoard={setPlayerBoard} setEditMode={this.setEditMode} setPlayerToEdit={this.setPlayerToEdit} />))}
+            <button className="btn btn-light" onClick={this.setShowTeamForm}>Add A New Team</button>
+            { this.state.showTeamForm && <PlayerForm addPlayer={this.addPlayer} editMode={this.state.editMode} playerToEdit={this.state.playerToEdit} updatePlayer={this.updatePlayer} /> }
+            {this.state.player.map((player) => (<Team key={player.id} player={player} setShowPlayers={setShowPlayers} setEditMode={this.setEditMode} setPlayerToEdit={this.setPlayerToEdit} />))}
       </div>);
     }
 }

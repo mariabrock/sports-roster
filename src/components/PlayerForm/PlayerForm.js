@@ -14,19 +14,19 @@ class PlayerForm extends React.Component {
 
     state = {
       playerName: '',
-      playerDescription: '',
+      playerPosition: '',
     }
 
     componentDidMount() {
       const { playerToEdit, editMode } = this.props;
       if (editMode) {
-        this.setState({ playerName: playerToEdit.name, playerDescription: playerToEdit.description });
+        this.setState({ playerName: playerToEdit.name, playerPosition: playerToEdit.description });
       }
     }
 
     componentDidUpdate(prevProps) {
       if ((prevProps.playerToEdit.id !== this.props.playerToEdit.id) && this.props.editMode) {
-        this.setState({ playerName: this.props.playerToEdit.name, playerDescription: this.props.playerToEdit.description });
+        this.setState({ playerName: this.props.playerToEdit.name, teamDescription: this.props.playerToEdit.description });
       }
     }
 
@@ -36,11 +36,11 @@ class PlayerForm extends React.Component {
       e.preventDefault();
       const newPlayer = {
         name: this.state.playerName,
-        description: this.state.playerDescription,
+        description: this.state.playerPosition,
         uid: authData.getUid(),
       };
       addPlayer(newPlayer);
-      this.setState({ playerName: '', playerDescription: '' });
+      this.setState({ playerName: '', playerPosition: '' });
     }
 
     updatePlayerEvent = (e) => {
@@ -48,7 +48,7 @@ class PlayerForm extends React.Component {
       const { updatePlayer, playerToEdit } = this.props;
       const updatedPlayer = {
         name: this.state.playerName,
-        description: this.state.playerDescription,
+        description: this.state.playerPosition,
         uid: playerToEdit.uid,
       };
       updatePlayer(playerToEdit.id, updatedPlayer);
@@ -59,36 +59,36 @@ class PlayerForm extends React.Component {
       this.setState({ playerName: e.target.value });
     }
 
-    descriptionChange = (e) => {
+    positionChange = (e) => {
       e.preventDefault();
-      this.setState({ playerDescription: e.target.value });
+      this.setState({ playerPosition: e.target.value });
     }
 
     render() {
       const { editMode } = this.props;
 
       return (
-            <form className='col-6 offset-3 PlayerForm'>
+        <form className='col-6 offset-3 PlayerForm'>
         <div className="form-group">
           <label htmlFor="order-name">Player Name:</label>
           <input
             type="text"
             className="form-control"
-            id="board-name"
-            placeholder="Enter Player name"
+            id="player-name"
+            placeholder="Enter Player Name"
             value={this.state.playerName}
             onChange={this.nameChange}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="description-name">Player Description:</label>
+          <label htmlFor="position-name">Player Position:</label>
           <input
             type="text"
             className="form-control"
             id="player-description"
-            placeholder="Enter Player description"
-            value={this.state.playerDescription}
-            onChange={this.descriptionChange}
+            placeholder="Enter Player Position"
+            value={this.state.playerPosition}
+            onChange={this.positionChange}
           />
         </div>
         {
