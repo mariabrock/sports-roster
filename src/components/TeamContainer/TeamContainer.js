@@ -13,14 +13,14 @@ class TeamContainer extends React.Component {
     }
 
     state = {
-      player: {},
+      player: [],
     }
 
     componentDidMount() {
       this.getPlayers();
     }
 
-    getTeams = () => {
+    getPlayers = () => {
       playerData.getPlayersByUid(authData.getUid())
         .then((teams) => {
           this.setState({ teams });
@@ -50,13 +50,10 @@ class TeamContainer extends React.Component {
     }
 
     render() {
-      const { setShowPlayers } = this.props;
-
       return (
         <div>
-            <button className="btn btn-light" onClick={this.setShowTeamForm}>Add A New Team</button>
-            { this.state.showTeamForm && <PlayerForm addPlayer={this.addPlayer} editMode={this.state.editMode} playerToEdit={this.state.playerToEdit} updatePlayer={this.updatePlayer} /> }
-            {this.state.player.map((player) => (<Team key={player.id} player={player} setShowPlayers={setShowPlayers} setEditMode={this.setEditMode} setPlayerToEdit={this.setPlayerToEdit} />))}
+            <button className="btn btn-light" onClick={this.setShowTeamForm}>Show Team</button>
+            { this.state.showPlayers && <PlayerForm addPlayer={this.addPlayer} editMode={this.state.editMode} playerToEdit={this.state.playerToEdit} updatePlayer={this.updatePlayer} /> }
       </div>);
     }
 }
