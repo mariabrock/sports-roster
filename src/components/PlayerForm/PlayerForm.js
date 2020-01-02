@@ -20,13 +20,13 @@ class PlayerForm extends React.Component {
     componentDidMount() {
       const { playerToEdit, editMode } = this.props;
       if (editMode) {
-        this.setState({ playerName: playerToEdit.name, playerPosition: playerToEdit.description });
+        this.setState({ playerName: playerToEdit.name, playerPosition: playerToEdit.position });
       }
     }
 
     componentDidUpdate(prevProps) {
       if ((prevProps.playerToEdit.id !== this.props.playerToEdit.id) && this.props.editMode) {
-        this.setState({ playerName: this.props.playerToEdit.name, teamDescription: this.props.playerToEdit.description });
+        this.setState({ playerName: this.props.playerToEdit.name, playerPosition: this.props.playerToEdit.position });
       }
     }
 
@@ -36,7 +36,7 @@ class PlayerForm extends React.Component {
       e.preventDefault();
       const newPlayer = {
         name: this.state.playerName,
-        description: this.state.playerPosition,
+        position: this.state.playerPosition,
         uid: authData.getUid(),
       };
       addPlayer(newPlayer);
@@ -68,34 +68,34 @@ class PlayerForm extends React.Component {
       const { editMode } = this.props;
 
       return (
-        <form className='col-6 offset-3 PlayerForm'>
-        <div className="form-group">
-          <label htmlFor="order-name">Player Name:</label>
-          <input
-            type="text"
-            className="form-control"
-            id="player-name"
-            placeholder="Enter Player Name"
-            value={this.state.playerName}
-            onChange={this.nameChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="position-name">Player Position:</label>
-          <input
-            type="text"
-            className="form-control"
-            id="player-description"
-            placeholder="Enter Player Position"
-            value={this.state.playerPosition}
-            onChange={this.positionChange}
-          />
-        </div>
-        {
-          (editMode) ? (<button className="btn btn-warning" onClick={this.updatePlayerEvent}>Update Player</button>)
-            : (<button className="btn btn-secondary" onClick={this.savePlayerEvent}>Save Player</button>)
-        }
-      </form>
+            <form className='col-6 offset-3 PlayerForm'>
+            <div className="form-group">
+              <label htmlFor="order-name">Player Name:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="player-name"
+                placeholder="Enter player name"
+                value={this.state.playerName}
+                onChange={this.nameChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="position-name">Player Position:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="player-position"
+                placeholder="Enter player position"
+                value={this.state.playerPosition}
+                onChange={this.positionChange}
+              />
+            </div>
+            {
+              (editMode) ? (<button className="btn btn-warning" onClick={this.updatePlayerEvent}>Update Player</button>)
+                : (<button className="btn btn-secondary" onClick={this.savePlayerEvent}>Save Player</button>)
+            }
+          </form>
       );
     }
 }
