@@ -4,6 +4,7 @@ import firebaseConnection from '../helpers/data/connection';
 
 import Auth from '../components/Auth/Auth';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
+import Players from '../components/Player/Player';
 import PlayersContainer from '../components/PlayersContainer/PlayersContainer';
 import SinglePlayer from '../components/SinglePlayer/SinglePlayer';
 
@@ -15,6 +16,7 @@ class App extends React.Component {
   state = {
     authed: false,
     selectedPlayerId: null,
+    player: [],
   }
 
   componentDidMount() {
@@ -43,13 +45,14 @@ class App extends React.Component {
   }
 
   render() {
-    const { authed } = this.state;
+    const { authed, player } = this.state;
     return (
       <div className="App">
         <MyNavbar authed={authed} />
         {
           this.renderView()
         }
+        <Players player={player}/>
       </div>
     );
   }
