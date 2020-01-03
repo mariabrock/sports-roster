@@ -1,27 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Player.scss';
 
 import playerShape from '../../helpers/propz/playerShape';
 
 class Player extends React.Component {
     static propTypes = {
       player: playerShape.playerShape,
-      setSinglePlayer: PropTypes.func,
+      deleteSinglePlayer: PropTypes.func,
       setEditMode: PropTypes.func,
       setPlayerToEdit: PropTypes.func,
     }
 
-    setSelectedPlayerId = (e) => {
+    deleteSinglePlayerEvent = (e) => {
       e.preventDefault();
-      const { setSinglePlayer, player } = this.props;
-      setSinglePlayer(player.id);
+      const { deleteSinglePlayer, player } = this.props;
+      deleteSinglePlayer(player.id);
     }
 
-    setEditMode = (e) => {
+    editSinglePlayerEvent = (e) => {
       e.preventDefault();
-      const { player, setEditMode, setPlayerToEdit } = this.props;
-      setEditMode(true);
+      const { setPlayerToEdit, player, setEditMode } = this.props;
       setPlayerToEdit(player);
+      setEditMode(true);
     }
 
     render() {
@@ -29,11 +30,12 @@ class Player extends React.Component {
       return (
             <div className="Player col-4">
                 <div className="card">
+                <img src={player.imageUrl} className="card-img-top" alt="player" />
                     <div className="card-body">
                         <h5 className="card-title">{player.name}</h5>
-                        <p className="card-text">{player.description}</p>
-                        <button className="btn btn-primary"onClick={this.setSelectedPlayerId}>View Pins</button>
-                        <button className="btn btn-secondary"onClick={this.setEditMode}>Edit Player</button>
+                        <p className="card-text">{player.position}</p>
+                        <button className="btn btn-outline fontawesomeex" onClick={this.deleteSinglePlayerEvent}>Delete</button>
+                        <button className="btn btn-outline fontawesomepen" onClick={this.editSinglePlayerEvent}>Edit</button>
                     </div>
                 </div>
             </div>
