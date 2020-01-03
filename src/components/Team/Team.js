@@ -82,7 +82,7 @@ class Team extends React.Component {
         <div className="Team">
         <div className="d-flex justify-content-between">
           <h1>Nashville Predators</h1>
-          <button className="btn btn-light" onClick={this.showPlayerFormEvent}>Show Form</button>
+          <button className="btn btn-light" onClick={this.showPlayerFormEvent}>Add Player</button>
         </div>
         <div>
           {
