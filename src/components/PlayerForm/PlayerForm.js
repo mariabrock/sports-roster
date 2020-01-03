@@ -6,41 +6,39 @@ import playerShape from '../../helpers/propz/playerShape';
 
 class PlayerForm extends React.Component {
     static propTypes = {
-      addPlayer: PropTypes.func,
       playerToEdit: playerShape.playerShape,
       editMode: PropTypes.bool,
-      updatePlayer: PropTypes.func,
+      addMode: PropTypes.bool,
+      updateNewPlayer: PropTypes.func,
+      createPlayer: PropTypes.func,
+      setShowForm: PropTypes.func,
     }
 
     state = {
       playerName: '',
+      playerImg: '',
       playerPosition: '',
     }
 
     componentDidMount() {
       const { playerToEdit, editMode } = this.props;
       if (editMode) {
-        this.setState({ playerName: playerToEdit.name, playerPosition: playerToEdit.position });
-      }
-    }
-
-    componentDidUpdate(prevProps) {
-      if ((prevProps.playerToEdit.id !== this.props.playerToEdit.id) && this.props.editMode) {
-        this.setState({ playerName: this.props.playerToEdit.name, playerPosition: this.props.playerToEdit.position });
+        this.setState({ playerName: playerToEdit.name, playerPosition: playerToEdit.position, playerImg: playerToEdit.imageUrl });
       }
     }
 
     savePlayerEvent = (e) => {
-      const { addPlayer } = this.props;
+      const { createPlayer } = this.props;
 
       e.preventDefault();
       const newPlayer = {
         name: this.state.playerName,
+        imageUrl: this.state.playerImg,
         position: this.state.playerPosition,
         uid: authData.getUid(),
       };
-      addPlayer(newPlayer);
-      this.setState({ playerName: '', playerPosition: '' });
+      createPlayer(newPlayer);
+      this.setState({ playerName: '', playerImg: '', playerPosition: '' });
     }
 
     updatePlayerEvent = (e) => {
@@ -48,6 +46,7 @@ class PlayerForm extends React.Component {
       const { updatePlayer, playerToEdit } = this.props;
       const updatedPlayer = {
         name: this.state.playerName,
+        imageUrl: this.state.playerImg,
         description: this.state.playerPosition,
         uid: playerToEdit.uid,
       };
@@ -62,6 +61,24 @@ class PlayerForm extends React.Component {
     positionChange = (e) => {
       e.preventDefault();
       this.setState({ playerPosition: e.target.value });
+    }
+
+    imgChange = (e) => {
+      e.preventDefault();
+      this.setState({ playerImg: e.target.value });
+    }
+
+    closeFormEvent = (e) => {
+      e.preventDefault(e);
+      const { setShowForm } = this.props;
+      this.setState({
+        playerName: '',
+        playerImg: '',
+        playerPosition: '',
+        addMode: false,
+        editMode: false,
+      });
+      setShowForm(false);
     }
 
     render() {
@@ -91,10 +108,22 @@ class PlayerForm extends React.Component {
                 onChange={this.positionChange}
               />
             </div>
+            <div className="form-group">
+              <label htmlFor="description-name">Player Image:</label>
+              <input
+              type="text"
+              className="form-control"
+              id="player-image"
+              placeholder="Enter player image url"
+              value={this.state.playerImg}
+              onChange={this.imgChange}
+              />
+            </div>
             {
               (editMode) ? (<button className="btn btn-warning" onClick={this.updatePlayerEvent}>Update Player</button>)
                 : (<button className="btn btn-secondary" onClick={this.savePlayerEvent}>Save Player</button>)
             }
+            <button className="btn btn-outline-dark" onClick={this.closeFormEvent}>Close</button>
           </form>
       );
     }

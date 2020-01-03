@@ -6,31 +6,29 @@ const baseURL = apiKeys.firebaseKeys.databaseURL;
 const getPlayersByUid = (uid) => new Promise((resolve, reject) => {
   axios.get(`${baseURL}/players.json?orderBy="uid"&equalTo="${uid}"`)
     .then((result) => {
-      const allPlayersObj = result.data;
+      const allPlayers = result.data;
       const players = [];
-      if (allPlayersObj != null) {
-        Object.keys(allPlayersObj).forEach((playerId) => {
-          const newPlayer = allPlayersObj[playerId];
-          newPlayer.id = playerId;
-          playerId.push(newPlayer);
+      if (allPlayers != null) {
+        Object.keys(allPlayers).forEach((fbId) => {
+          const newPlayer = allPlayers[fbId];
+          newPlayer.id = fbId;
+          players.push(newPlayer);
         });
       }
       resolve(players);
     })
-    .catch((err) => {
-      reject(err);
-    });
+    .catch((error) => reject(error));
 });
 
-const getSinglePlayer = (playerId) => axios.get(`${baseURL}/players/${playerId}.json`);
+const deletePlayerById = (playerId) => axios.delete(`${baseURL}/players/${playerId}.json`);
 
-const savePlayer = (playerInfo) => axios.post(`${baseURL}/players.json`, playerInfo);
+const savePlayer = (newPlayer) => axios.post(`${baseURL}/players.json`, newPlayer);
 
-const updatePlayer = (playerId, newPlayerInfo) => axios.put(`${baseURL}/boards/${playerId}.json`, newPlayerInfo);
+const updatePlayer = (playerId, playerObj) => axios.put(`${baseURL}/players/${playerId}.json`, playerObj);
 
 export default {
   getPlayersByUid,
-  getSinglePlayer,
+  deletePlayerById,
   savePlayer,
   updatePlayer,
 };
