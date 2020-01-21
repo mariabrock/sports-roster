@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase/app';
 import firebaseConnection from '../../helpers/data/connection';
 
-import Auth from '../MyNavbar/Auth/Auth';
+import Auth from '../Auth/Auth';
 import MyNavbar from '../MyNavbar/MyNavbar';
 import Team from '../Team/Team';
 
